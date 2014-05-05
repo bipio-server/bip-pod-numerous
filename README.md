@@ -1,4 +1,4 @@
-![Numerous](undefined.png) bip-pod-numerous
+![Numerous](numerous.png) bip-pod-numerous
 =======
 
 <a href="http://numerousapp.com">Numerous</a> pod for [bipio](https://bip.io).  
