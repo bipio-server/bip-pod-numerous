@@ -17,21 +17,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function IncrementMetric(podConfig) {
-  this.name = 'increment_metric';
-  this.description = 'Increment a Metric',
-  this.description_long = 'Increments a Numerous metric',
+function UpdateMetric(podConfig) {
+  this.name = 'update_metric';
+  this.description = 'Update a Metric Value',
+  this.description_long = 'Updates a Numerous Metrics Value',
   this.trigger = false; 
   this.singleton = false;
   this.auto = false;
   this.podConfig = podConfig;
 }
 
-IncrementMetric.prototype = {};
+UpdateMetric.prototype = {};
 
-// IncrementMetric schema definition
+// UpdateMetric schema definition
 // @see http://json-schema.org/
-IncrementMetric.prototype.getSchema = function() {
+UpdateMetric.prototype.getSchema = function() {
   return {
     "config": {
       properties : {
@@ -81,7 +81,7 @@ IncrementMetric.prototype.getSchema = function() {
   }
 }
 
-IncrementMetric.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
+UpdateMetric.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
   var postReq = this.$resource._httpPost,
     schema = this.getSchema(),
     self = this,
@@ -95,7 +95,6 @@ IncrementMetric.prototype.invoke = function(imports, channel, sysImports, conten
     postReq(
       'https://api.numerousapp.com/v1/metrics/' + metricId + '/events', 
       {
-        action : 'ADD',
         value : value
       },
       function(err, exports) {
@@ -111,4 +110,4 @@ IncrementMetric.prototype.invoke = function(imports, channel, sysImports, conten
 }
 
 // -----------------------------------------------------------------------------
-module.exports = IncrementMetric;
+module.exports = UpdateMetric;

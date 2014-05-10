@@ -17,6 +17,8 @@
  *  
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * @see http://docs.numerous.apiary.io
  */
 var Pod = require('bip-pod'),
     Numerous = new Pod({
@@ -48,7 +50,7 @@ var Pod = require('bip-pod'),
 Numerous.rpc = function(action, method, sysImports, options, channel, req, res) {
   var self = this;
   if (method == 'my_metrics') {
-    self._httpGet('https://api.numerousapp.com/v1/metrics/me', function(err, resp) {
+    self._httpGet('https://api.numerousapp.com/v1/users/me/metrics', function(err, resp) {
       if (err) {
         res.send(err, 500);
       } else {
@@ -67,7 +69,8 @@ Numerous.rpc = function(action, method, sysImports, options, channel, req, res) 
 
 // Include any actions
 Numerous.add(require('./new_metric.js'));
-// Numerous.add(require('./increment_metric.js')); // stubbed. api down.
+Numerous.add(require('./increment_metric.js'));
+Numerous.add(require('./update_metric.js'));
 
 // -----------------------------------------------------------------------------
 module.exports = Numerous;
