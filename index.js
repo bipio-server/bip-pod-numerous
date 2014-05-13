@@ -23,7 +23,7 @@
 var Pod = require('bip-pod'),
     Numerous = new Pod({
         name : 'numerous',
-        description : 'Numeous',
+        description : 'Numerous',
         description_long : '<a href="http://numerousapp.com">Numerous</a> lets you track and share life’s most important numbers',
         authType : 'issuer_token',
         authMap : {
