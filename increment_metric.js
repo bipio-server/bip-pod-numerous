@@ -1,4 +1,4 @@
-/** 
+/**
  *
  * @author Michael Pearson <github@m.bip.io>
  * Copyright (c) 2010-2014 Michael Pearson https://github.com/mjpearson
@@ -19,9 +19,9 @@
 
 function IncrementMetric(podConfig) {
   this.name = 'increment_metric';
-  this.description = 'Increment a Metric',
-  this.description_long = 'Increments a Numerous metric',
-  this.trigger = false; 
+  this.title = 'Increment a Metric',
+  this.description = 'Increments a Numerous metric',
+  this.trigger = false;
   this.singleton = false;
   this.auto = false;
   this.podConfig = podConfig;
@@ -41,7 +41,7 @@ IncrementMetric.prototype.getSchema = function() {
           oneOf : [
             {
               '$ref' : '/renderers/my_metrics/{id}'
-            }            
+            }
           ],
           label : {
             '$ref' : '/renderers/my_metrics/{label}'
@@ -61,7 +61,7 @@ IncrementMetric.prototype.getSchema = function() {
           "default" : 1
         }
       }
-    },    
+    },
     "exports": {
       "properties" : {
         "id" : {
@@ -91,9 +91,9 @@ IncrementMetric.prototype.invoke = function(imports, channel, sysImports, conten
     metricId = (imports.metric_id || channel.config.metric_id).trim(),
     value = imports.value ? Number(imports.value) : schema.imports.properties.value['default'];
 
-  if (!isNaN(value)) {   
+  if (!isNaN(value)) {
     postReq(
-      'https://api.numerousapp.com/v1/metrics/' + metricId + '/events', 
+      'https://api.numerousapp.com/v1/metrics/' + metricId + '/events',
       {
         action : 'ADD',
         value : value
@@ -101,7 +101,7 @@ IncrementMetric.prototype.invoke = function(imports, channel, sysImports, conten
       function(err, exports) {
         if (err) {
           next(err);
-        } else {  
+        } else {
           next(false, exports);
         }
       }, {

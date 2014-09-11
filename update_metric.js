@@ -1,4 +1,4 @@
-/** 
+/**
  *
  * @author Michael Pearson <github@m.bip.io>
  * Copyright (c) 2010-2014 Michael Pearson https://github.com/mjpearson
@@ -19,9 +19,9 @@
 
 function UpdateMetric(podConfig) {
   this.name = 'update_metric';
-  this.description = 'Update a Metric Value',
-  this.description_long = 'Updates a Numerous Metrics Value',
-  this.trigger = false; 
+  this.title = 'Update a Metric Value',
+  this.description = 'Updates a Numerous Metrics Value',
+  this.trigger = false;
   this.singleton = false;
   this.auto = false;
   this.podConfig = podConfig;
@@ -41,7 +41,7 @@ UpdateMetric.prototype.getSchema = function() {
           oneOf : [
             {
               '$ref' : '/renderers/my_metrics/{id}'
-            }            
+            }
           ],
           label : {
             '$ref' : '/renderers/my_metrics/{label}'
@@ -61,7 +61,7 @@ UpdateMetric.prototype.getSchema = function() {
           "default" : 1
         }
       }
-    },    
+    },
     "exports": {
       "properties" : {
         "id" : {
@@ -91,16 +91,16 @@ UpdateMetric.prototype.invoke = function(imports, channel, sysImports, contentPa
     metricId = (imports.metric_id || channel.config.metric_id).trim(),
     value = imports.value ? Number(imports.value) : schema.imports.properties.value['default'];
 
-  if (!isNaN(value)) {   
+  if (!isNaN(value)) {
     postReq(
-      'https://api.numerousapp.com/v1/metrics/' + metricId + '/events', 
+      'https://api.numerousapp.com/v1/metrics/' + metricId + '/events',
       {
         value : value
       },
       function(err, exports) {
         if (err) {
           next(err);
-        } else {  
+        } else {
           next(false, exports);
         }
       }, {

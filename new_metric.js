@@ -1,4 +1,4 @@
-/** 
+/**
  *
  * @author Michael Pearson <github@m.bip.io>
  * Copyright (c) 2010-2014 Michael Pearson https://github.com/mjpearson
@@ -23,9 +23,9 @@ fs = require('fs');
 
 function NewMetric(podConfig) {
   this.name = 'new_metric';
-  this.description = 'Create a Metric',
-  this.description_long = 'Creates a New Numerous metric.  The first image file present will be set as its background',
-  this.trigger = false; 
+  this.title = 'Create a Metric',
+  this.description = 'Creates a New Numerous metric.  The first image file present will be set as its background',
+  this.trigger = false;
   this.singleton = false;
   this.auto = false;
   this.podConfig = podConfig;
@@ -45,7 +45,7 @@ NewMetric.prototype.getSchema = function() {
           oneOf : [
             {
               '$ref' : '#/config/definitions/kind'
-            }            
+            }
           ]
         },
         "units" : {
@@ -80,8 +80,9 @@ NewMetric.prototype.getSchema = function() {
           "type" :  "integer",
           "description" : "Initial Value"
         }
-      }
-    },    
+      },
+      "required" : [ "label" ]
+    },
     "exports": {
       "properties" : {
         "id" : {
@@ -114,7 +115,7 @@ NewMetric.prototype.invoke = function(imports, channel, sysImports, contentParts
     if (contentParts._files && contentParts._files.length) {
       for (var i = 0; i < contentParts._files.length; i++) {
         file = contentParts._files[i];
-        if (0 === file.type.indexOf('image')) {          
+        if (0 === file.type.indexOf('image')) {
           form.append('image', fs.createReadStream(file.localpath));
           hasImage = true;
           break;
@@ -132,9 +133,9 @@ NewMetric.prototype.invoke = function(imports, channel, sysImports, contentParts
           }
           p[k] = imports[k];
         }
-      }      
+      }
     }
-    
+
     for (var k in channel.config) {
       if (channel.config.hasOwnProperty(k)) {
         if ('currencySymbol' === k && 'currency' !== channel.config.kind) {
@@ -143,13 +144,13 @@ NewMetric.prototype.invoke = function(imports, channel, sysImports, contentParts
         if (imports[k]) {
           p[k] = channel.config[k];
         }
-      }      
+      }
     }
 
     postReq('https://api.numerousapp.com/v1/metrics', p, function(err, exports) {
       if (err) {
         next(err);
-      } else {  
+      } else {
         if (hasImage) {
           var options = {
             protocol : 'https:',
@@ -159,13 +160,13 @@ NewMetric.prototype.invoke = function(imports, channel, sysImports, contentParts
           };
 
           //Do POST request, callback for response
-          var request = form.submit(options, function (err, res) {      
+          var request = form.submit(options, function (err, res) {
             var body = '';
 
             if (err) {
               next(err);
-              
-            } else {      
+
+            } else {
               if (res.statusCode !== 201) {
                 if (res.statusCode === 401) {
                   next('Invalid API key');
@@ -186,12 +187,12 @@ NewMetric.prototype.invoke = function(imports, channel, sysImports, contentParts
                 });
               }
             }
-            
+
             res.resume();
           });
         } else {
           next(false, exports);
-        }       
+        }
       }
     }, {
       'Authorization' : 'Basic ' + new Buffer(sysImports.auth.issuer_token.username + ':').toString('base64')
