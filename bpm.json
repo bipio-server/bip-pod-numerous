@@ -1,0 +1,228 @@
+{
+  "name": "numerous",
+  "title": "Numerous",
+  "description": "<a href=\"http://numerousapp.com\">Numerous</a> lets you track and share life’s most important numbers",
+  "url": "",
+  "trackDuplicates": false,
+  "config": {},
+  "auth": {
+    "strategy": "issuer_token"
+  },
+  "rpcs": {
+    "my_metrics": {
+      "contentType": "application/json",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label"
+        }
+      },
+      "title": "Get My Metrics"
+    }
+  },
+  "actions": {
+    "new_metric": {
+      "title": "Create a Metric",
+      "description": "Creates a New Numerous metric.  The first image file present will be set as its background",
+      "trigger": "invoke",
+      "config": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "Metric Kind",
+            "oneOf": [
+              {
+                "$ref": "#/config/definitions/kind"
+              }
+            ]
+          },
+          "units": {
+            "type": "string",
+            "description": "Units"
+          },
+          "currencySymbol": {
+            "type": "string",
+            "description": "Currency Symbol"
+          }
+        },
+        "definitions": {
+          "kind": {
+            "description": "Metric Kind",
+            "enum": [
+              "number",
+              "currency",
+              "percent",
+              "duration"
+            ],
+            "enum_label": [
+              "Number",
+              "Currency",
+              "Percent",
+              "Duration"
+            ],
+            "default": "number"
+          }
+        },
+        "disposition": [
+          "kind",
+          "units",
+          "currencySymbol"
+        ]
+      },
+      "exports": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "photoURL": {
+            "type": "string",
+            "description": "Photo URL"
+          }
+        }
+      },
+      "imports": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Label"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description"
+          },
+          "value": {
+            "type": "integer",
+            "description": "Initial Value"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "disposition": [
+          "label",
+          "description",
+          "value"
+        ]
+      }
+    },
+    "increment_metric": {
+      "title": "Increment a Metric",
+      "description": "Increments a Numerous metric",
+      "trigger": "invoke",
+      "config": {
+        "properties": {
+          "metric_id": {
+            "type": "string",
+            "description": "Metric",
+            "oneOf": [
+              {
+                "$ref": "/renderers/my_metrics/{id}"
+              }
+            ],
+            "label": {
+              "$ref": "/renderers/my_metrics/{label}"
+            }
+          }
+        },
+        "disposition": [
+          "metric_id"
+        ]
+      },
+      "exports": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Event ID"
+          },
+          "metricId": {
+            "type": "string",
+            "description": "Metric ID"
+          },
+          "value": {
+            "type": "string",
+            "description": "New Value"
+          }
+        }
+      },
+      "imports": {
+        "properties": {
+          "metric_id": {
+            "type": "string",
+            "description": "Metric ID"
+          },
+          "value": {
+            "type": "string",
+            "description": "Value",
+            "default": 1
+          }
+        },
+        "disposition": [
+          "metric_id",
+          "value"
+        ]
+      }
+    },
+    "update_metric": {
+      "title": "Update a Metric Value",
+      "description": "Updates a Numerous Metrics Value",
+      "trigger": "invoke",
+      "config": {
+        "properties": {
+          "metric_id": {
+            "type": "string",
+            "description": "Metric",
+            "oneOf": [
+              {
+                "$ref": "/renderers/my_metrics/{id}"
+              }
+            ],
+            "label": {
+              "$ref": "/renderers/my_metrics/{label}"
+            }
+          }
+        },
+        "disposition": [
+          "metric_id"
+        ]
+      },
+      "exports": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Event ID"
+          },
+          "metricId": {
+            "type": "string",
+            "description": "Metric ID"
+          },
+          "value": {
+            "type": "string",
+            "description": "New Value"
+          }
+        }
+      },
+      "imports": {
+        "properties": {
+          "metric_id": {
+            "type": "string",
+            "description": "Metric ID"
+          },
+          "value": {
+            "type": "string",
+            "description": "Value",
+            "default": 1
+          }
+        },
+        "disposition": [
+          "metric_id",
+          "value"
+        ]
+      }
+    }
+  }
+}

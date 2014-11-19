@@ -1,7 +1,7 @@
 {
   "name": "bip-pod-numerous",
-  "version": "0.0.7",
-  "author" : "Michael Pearson",
+  "version": "0.0.8",
+  "author": "Michael Pearson",
   "description": "Numerous Pod for Bipio",
   "keywords": [
     "bip",
@@ -24,7 +24,6 @@
   ],
   "main": ".",
   "dependencies": {
-    "bip-pod": ">=0.0.1",
     "form-data": "^0.1.2"
   },
   "engines": {
