@@ -17,79 +17,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function IncrementMetric(podConfig) {
-  this.name = 'increment_metric';
-  this.title = 'Increment a Metric',
-  this.description = 'Increments a Numerous metric',
-  this.trigger = false;
-  this.singleton = false;
-  this.auto = false;
-  this.podConfig = podConfig;
+function IncrementMetric() {
 }
 
 IncrementMetric.prototype = {};
 
-// IncrementMetric schema definition
-// @see http://json-schema.org/
-IncrementMetric.prototype.getSchema = function() {
-  return {
-    "config": {
-      properties : {
-        'metric_id' : {
-          type : 'string',
-          description : 'Metric',
-          oneOf : [
-            {
-              '$ref' : '/renderers/my_metrics/{id}'
-            }
-          ],
-          label : {
-            '$ref' : '/renderers/my_metrics/{label}'
-          }
-        }
-      }
-    },
-    "imports": {
-      "properties" : {
-        'metric_id' : {
-          type : 'string',
-          description : 'Metric ID'
-        },
-        'value' : {
-          type : 'string',
-          description : 'Value',
-          "default" : 1
-        }
-      }
-    },
-    "exports": {
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "Event ID"
-        },
-        "metricId" : {
-          "type" : "string",
-          "description" : "Metric ID"
-        },
-        "value" : {
-          "type" : "string",
-          "description" : "New Value"
-        }
-      }
-    }
-  }
-}
-
 IncrementMetric.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
   var postReq = this.$resource._httpPost,
-    schema = this.getSchema(),
     self = this,
     // host = "numerous.apiary-mock.com", // production mock
     //host = "numerous.apiary-proxy.com", // debug proxy mock
     host = "api.numerousapp.com",
     metricId = (imports.metric_id || channel.config.metric_id).trim(),
-    value = imports.value ? Number(imports.value) : schema.imports.properties.value['default'];
+    value = Number(imports.value);
 
   if (!isNaN(value)) {
     postReq(

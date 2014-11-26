@@ -20,88 +20,16 @@
 var  FormData = require('form-data'),
 https = require('https');
 
-function NewMetric(podConfig) {
-  this.name = 'new_metric';
-  this.title = 'Create a Metric',
-  this.description = 'Creates a New Numerous metric.  The first image file present will be set as its background',
-  this.trigger = false;
-  this.singleton = false;
-  this.auto = false;
-  this.podConfig = podConfig;
+function NewMetric() {
 }
 
 NewMetric.prototype = {};
-
-// NewMetric schema definition
-// @see http://json-schema.org/
-NewMetric.prototype.getSchema = function() {
-  return {
-    "config": {
-      "properties" : {
-        "kind" : {
-          "type" :  "string",
-          "description" : "Metric Kind",
-          oneOf : [
-            {
-              '$ref' : '#/config/definitions/kind'
-            }
-          ]
-        },
-        "units" : {
-          "type" :  "string",
-          "description" : "Units"
-        },
-        "currencySymbol" : {
-          "type" :  "string",
-          "description" : "Currency Symbol"
-        }
-      },
-      "definitions" : {
-        "kind" : {
-          "description" : "Metric Kind",
-          "enum" : [ "number", "currency" , "percent", "duration" ],
-          "enum_label" : [ "Number", "Currency", "Percent", "Duration"],
-          "default" : "number"
-        }
-      }
-    },
-    "imports": {
-      "properties" : {
-        "label" : {
-          "type" :  "string",
-          "description" : "Label"
-        },
-        "description" : {
-          "type" :  "string",
-          "description" : "Description"
-        },
-        "value" : {
-          "type" :  "integer",
-          "description" : "Initial Value"
-        }
-      },
-      "required" : [ "label" ]
-    },
-    "exports": {
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "ID"
-        },
-        "photoURL" : {
-          "type" : "string",
-          "description" : "Photo URL"
-        }
-      }
-    }
-  }
-}
 
 NewMetric.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
   var log = this.$resource.log,
     postReq = this.$resource._httpPost,
     $resource = this.$resource,
-    schema = this.getSchema(),
+    schema = this.schema,
     self = this,
     form = new FormData(),
     imageFile,

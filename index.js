@@ -21,31 +21,7 @@
  * @see http://docs.numerous.apiary.io
  */
 var Pod = require('bip-pod'),
-    Numerous = new Pod({
-        name : 'numerous',
-        title : 'Numerous',
-        description : '<a href="http://numerousapp.com">Numerous</a> lets you track and share life’s most important numbers',
-        authType : 'issuer_token',
-        authMap : {
-            username : 'API Key'
-        },
-        'renderers' : {
-          'my_metrics' : {
-            description : 'Get My Metrics',
-            contentType : DEFS.CONTENTTYPE_JSON,
-            properties : {
-              'id' : {
-                type : "string",
-                description: 'ID'
-              },
-              'label' : {
-                type : "string",
-                description: 'Label'
-              }
-            }
-          }
-        }
-    });
+    Numerous = new Pod();
 
 Numerous.rpc = function(action, method, sysImports, options, channel, req, res) {
   var self = this;
@@ -65,12 +41,6 @@ Numerous.rpc = function(action, method, sysImports, options, channel, req, res) 
     this.__proto__.rpc.apply(this, arguments);
   }
 }
-
-
-// Include any actions
-Numerous.add(require('./new_metric.js'));
-Numerous.add(require('./increment_metric.js'));
-Numerous.add(require('./update_metric.js'));
 
 // -----------------------------------------------------------------------------
 module.exports = Numerous;
