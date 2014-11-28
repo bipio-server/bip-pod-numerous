@@ -6,7 +6,10 @@
   "trackDuplicates": false,
   "config": {},
   "auth": {
-    "strategy": "issuer_token"
+    "strategy": "issuer_token",
+    "authMap" : {
+      "username" : "API Key"
+    }
   },
   "rpcs": {
     "my_metrics": {
