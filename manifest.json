@@ -7,9 +7,15 @@
   "config": {},
   "auth": {
     "strategy": "issuer_token",
-    "authMap" : {
-      "username" : "API Key"
-    }
+    "properties": {
+      "username": {
+        "title": "API Key",
+        "type": "string"
+      }
+    },
+    "disposition": [
+      "username"
+    ]
   },
   "rpcs": {
     "my_metrics": {
