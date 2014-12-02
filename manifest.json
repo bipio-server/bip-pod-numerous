@@ -130,11 +130,11 @@
             "description": "Metric",
             "oneOf": [
               {
-                "$ref": "/renderers/my_metrics/{id}"
+                "$ref": "/rpcs/my_metrics/{id}"
               }
             ],
             "label": {
-              "$ref": "/renderers/my_metrics/{label}"
+              "$ref": "/rpcs/my_metrics/{label}"
             }
           }
         },
@@ -187,11 +187,11 @@
             "description": "Metric",
             "oneOf": [
               {
-                "$ref": "/renderers/my_metrics/{id}"
+                "$ref": "/rpcs/my_metrics/{id}"
               }
             ],
             "label": {
-              "$ref": "/renderers/my_metrics/{label}"
+              "$ref": "/rpcs/my_metrics/{label}"
             }
           }
         },
