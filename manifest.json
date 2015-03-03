@@ -42,20 +42,20 @@
         "properties": {
           "kind": {
             "type": "string",
-            "description": "Metric Kind",
             "oneOf": [
               {
                 "$ref": "#/config/definitions/kind"
               }
-            ]
+            ],
+            "title": "Metric Kind"
           },
           "units": {
             "type": "string",
-            "description": "Units"
+            "title": "Units"
           },
           "currencySymbol": {
             "type": "string",
-            "description": "Currency Symbol"
+            "title": "Currency Symbol"
           }
         },
         "definitions": {
@@ -86,11 +86,11 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "ID"
+            "title": "ID"
           },
           "photoURL": {
             "type": "string",
-            "description": "Photo URL"
+            "title": "Photo URL"
           }
         }
       },
@@ -98,15 +98,15 @@
         "properties": {
           "label": {
             "type": "string",
-            "description": "Label"
+            "title": "Label"
           },
           "description": {
             "type": "string",
-            "description": "Description"
+            "title": "Description"
           },
           "value": {
             "type": "integer",
-            "description": "Initial Value"
+            "title": "Initial Value"
           }
         },
         "required": [
@@ -127,7 +127,6 @@
         "properties": {
           "metric_id": {
             "type": "string",
-            "description": "Metric",
             "oneOf": [
               {
                 "$ref": "/rpcs/my_metrics/{id}"
@@ -135,7 +134,8 @@
             ],
             "label": {
               "$ref": "/rpcs/my_metrics/{label}"
-            }
+            },
+            "title": "Metric"
           }
         },
         "disposition": [
@@ -146,15 +146,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Event ID"
+            "title": "Event ID"
           },
           "metricId": {
             "type": "string",
-            "description": "Metric ID"
+            "title": "Metric ID"
           },
           "value": {
             "type": "string",
-            "description": "New Value"
+            "title": "New Value"
           }
         }
       },
@@ -162,12 +162,12 @@
         "properties": {
           "metric_id": {
             "type": "string",
-            "description": "Metric ID"
+            "title": "Metric ID"
           },
           "value": {
             "type": "string",
-            "description": "Value",
-            "default": 1
+            "default": 1,
+            "title": "Value"
           }
         },
         "disposition": [
@@ -184,7 +184,6 @@
         "properties": {
           "metric_id": {
             "type": "string",
-            "description": "Metric",
             "oneOf": [
               {
                 "$ref": "/rpcs/my_metrics/{id}"
@@ -192,7 +191,8 @@
             ],
             "label": {
               "$ref": "/rpcs/my_metrics/{label}"
-            }
+            },
+            "title": "Metric"
           }
         },
         "disposition": [
@@ -203,15 +203,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Event ID"
+            "title": "Event ID"
           },
           "metricId": {
             "type": "string",
-            "description": "Metric ID"
+            "title": "Metric ID"
           },
           "value": {
             "type": "string",
-            "description": "New Value"
+            "title": "New Value"
           }
         }
       },
@@ -219,12 +219,12 @@
         "properties": {
           "metric_id": {
             "type": "string",
-            "description": "Metric ID"
+            "title": "Metric ID"
           },
           "value": {
             "type": "string",
-            "description": "Value",
-            "default": 1
+            "default": 1,
+            "title": "Value"
           }
         },
         "disposition": [
