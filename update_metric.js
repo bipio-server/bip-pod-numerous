@@ -28,7 +28,7 @@ UpdateMetric.prototype.invoke = function(imports, channel, sysImports, contentPa
     // host = "numerous.apiary-mock.com", // production mock
     //host = "numerous.apiary-proxy.com", // debug proxy mock
     host = "api.numerousapp.com",
-    metricId = (imports.metric_id || channel.config.metric_id).trim(),
+    metricId = (imports.metric_id || imports.metric_id).trim(),
     value = Number(imports.value);
 
   if (!isNaN(value)) {

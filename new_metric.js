@@ -64,13 +64,13 @@ NewMetric.prototype.invoke = function(imports, channel, sysImports, contentParts
     }
   }
 
-  for (var k in channel.config) {
-    if (channel.config.hasOwnProperty(k)) {
-      if ('currencySymbol' === k && 'currency' !== channel.config.kind) {
+  for (var k in imports) {
+    if (imports.hasOwnProperty(k)) {
+      if ('currencySymbol' === k && 'currency' !== imports.kind) {
         continue;
       }
       if (imports[k]) {
-        p[k] = channel.config[k];
+        p[k] = imports[k];
       }
     }
   }
