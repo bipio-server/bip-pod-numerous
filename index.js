@@ -23,6 +23,23 @@
 var Pod = require('bip-pod'),
     Numerous = new Pod();
 
+Numerous.testCredentials = function(struct, next) {
+    var url = struct.username,
+        config = this.getConfig();
+
+    this._httpGet('https://api.numerousapp.com/v1/users/self', function(err, resp, headers, code) {
+      if (err) {
+        next("Not Authorized", 401);
+      } else {
+        next();
+      }
+    },
+    {
+      'Authorization' : 'Basic ' + new Buffer(struct.username + ':').toString('base64')
+    });
+
+}
+
 Numerous.rpc = function(action, method, sysImports, options, channel, req, res) {
   var self = this;
   if (method == 'my_metrics') {
